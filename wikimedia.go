@@ -12,6 +12,7 @@ import (
 type ApiResponse struct {
 	Query         ApiQuery         `json:"query"`
 	QueryContinue ApiQueryContinue `json:"query-continue"`
+	Parse         ApiParse         `json:"parse"`
 }
 
 // Strip all HTML tags from the response
@@ -60,6 +61,30 @@ type ApiQueryContinue struct {
 
 type ApiQueryContinueSearch struct {
 	SrOffset int `json:"sroffset"`
+}
+
+type ApiParse struct {
+	PageId     int               `json:"pageid"`
+	Title      string            `json:"title"`
+	Categories []ApiPageCategory `json:"categories"`
+	Sections   []ApiPageSection  `json:"sections"`
+}
+
+type ApiPageCategory struct {
+	SortKey string `json:"sortkey"`
+	Hidden  string `json:"hidden"`
+	Name    string `json:"*"`
+}
+
+type ApiPageSection struct {
+	TOCLevel   int    `json:"toclevel"`
+	Level      string `json:"level"`
+	Line       string `json:"line"`
+	Number     string `json:"number"`
+	Index      string `json:"index"`
+	FromTitle  string `json:"fromtitle"`
+	ByteOffset int    `json:"byteoffset"`
+	Anchor     string `json:"anchor"`
 }
 
 func stripHtml(s string) string {
